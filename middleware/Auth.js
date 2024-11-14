@@ -10,7 +10,7 @@ const Auth = async (req, res, next) => {
   if (token) {
     try {
       const payload = jwt.verify(token, process.env.SECRET_KEY);
-      req.user = await userModel.findById(payload._id).select("-password");
+      req.user = payload.id;
       next();
     } catch (error) {
       throw new UnAuthorised("Authorization failed.");

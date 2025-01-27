@@ -5,7 +5,6 @@ const PostModel = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
     },
 
     content: {
@@ -37,8 +36,9 @@ const PostModel = new mongoose.Schema(
       default: 0,
     },
 
-    image: {
+    avatar: {
       type: String,
+      default: "",
     },
   },
   { timestamps: true }

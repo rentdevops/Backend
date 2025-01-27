@@ -4,7 +4,7 @@ ENV NODE_ENV production
 
 RUN mkdir -p /app
 WORKDIR /app
-COPY * /app
+COPY package.json package-lock.json ./
 
 RUN npm install --production
 
@@ -17,4 +17,4 @@ COPY --from=base /app /app
 
 USER nonroot
 
-CMD ["server.js"]
+CMD ["node","server.js"]

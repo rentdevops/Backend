@@ -1,7 +1,11 @@
 const mongoose = require("mongoose");
-const uri = process.env.MONGO_URI;
-const connectDB = () => {
-  mongoose.connect(uri, {}).then(() => console.log("MongoDB Connected..."));
+const clientOptions = {
+  serverApi: { version: "1", strict: true, deprecationErrors: true },
+};
+const connectDB = async () => {
+  await mongoose
+    .connect(process.env.MONGO_URI, clientOptions)
+    .then(() => console.log("MongoDB Connected..."));
 };
 
 module.exports = connectDB;

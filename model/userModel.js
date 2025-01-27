@@ -18,7 +18,6 @@ const UserModel = new mongoose.Schema(
     },
     gender: {
       type: String,
-      required: true,
     },
     blockUsers: [
       {

@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../model/userModel");
 const UnAuthorised = require("../error_ctrl/UnAuthorised");
+
+// middleware to authenticate user before accessing protected routes
 const Auth = async (req, res, next) => {
   const auth = req.headers.authorization;
   if (!auth || !auth.startsWith("Bearer")) {

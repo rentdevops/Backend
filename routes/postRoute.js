@@ -18,7 +18,7 @@ router.get("/:id", getSinglePost);
 router.post("/createpost", Auth, upload.single("profile"), createPost);
 router.put("/editpost/:id", Auth, editPost);
 router.delete("/deletepost/:id", Auth, deletePost);
-router.get("/likepost/:id", Auth, likePost);
+router.patch("/likepost/:id", Auth, likePost);
 router.get("/search/post", Auth, searchPost);
 
 module.exports = router;

@@ -40,6 +40,10 @@ const PostModel = new mongoose.Schema(
       type: String,
       default: "",
     },
+    liked: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

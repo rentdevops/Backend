@@ -3,7 +3,7 @@ const postModel = require("../model/postModel");
 const replyCommentModel = require("../model/replyCommentModel");
 
 exports.getCommentReply = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   if (!id) {
     return res.status(400).json({ message: "Invalid reply id" });
   }
@@ -31,8 +31,8 @@ exports.replyComment = async (req, res) => {
   const comment = await commentModel.findById(req.params.id);
   let updateComment = comment.replies.push(Reply._id);
 
+  await Reply.populate("replyBy", "name");
   await comment.save();
-  //   await comment.populate("replyBy");
 
   res.status(201).json({
     message: "Reply created successfully",

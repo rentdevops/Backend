@@ -3,11 +3,15 @@ const userModel = require("../model/userModel");
 
 exports.getPosts = async (req, res) => {
   const page = req.query.page || 1;
-  const limit = req.query.limit || 4;
+  const limit = req.query.limit || 3;
   const skip = (page - 1) * limit;
   const totalPosts = await postModel.countDocuments({});
-  const post = await postModel.find({}).limit(limit).skip(skip);
-
+  const post = await postModel
+    .find({})
+    .limit(limit)
+    .skip(skip)
+    .sort({ createdAt: -1 })
+    .populate("likes", "-password");
   res
     .status(200)
     .json({ length: totalPosts, message: "post retrieved", data: post });
@@ -18,7 +22,7 @@ exports.searchPost = async (req, res) => {
     ? {
         title: { $regex: req.query.result, $options: "i" },
       }
-    : {};
+    : null;
   const post = await postModel.find(result);
 
   res.status(200).json({ message: "searched result", data: post });
@@ -87,6 +91,7 @@ exports.likePost = async (req, res) => {
     throw new BadReq("error ocurred.");
   }
   const postToLike = await postModel.findById(req.params.id);
+  postToLike.liked = !postToLike.liked;
 
   if (postToLike.likes.includes(userLiking._id)) {
     postToLike.likes = postToLike.likes.filter(
@@ -94,12 +99,12 @@ exports.likePost = async (req, res) => {
     );
     await postToLike.save();
     return res.status(200).json({
-      message: `Disliked`,
+      postToLike,
     });
   }
   postToLike.likes.push(userLiking._id);
   await postToLike.save();
   res.status(200).json({
-    message: `Liked `,
+    postToLike,
   });
 };

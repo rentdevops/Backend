@@ -8,7 +8,9 @@ exports.getComments = async (req, res) => {
   }
   const comments = await commentModel
     .find({ postId: id })
-    .populate("commentedBy");
+    .populate("replies")
+    .populate("commentedBy")
+    .sort({ createdAt: -1 });
   res.status(200).json({
     message: comments,
   });
@@ -18,7 +20,10 @@ exports.getSingleComment = async (req, res) => {
   if (!id) {
     return res.status(400).json({ message: "Invalid comment id" });
   }
-  const comment = await commentModel.findById(id).populate("replies");
+  const comment = await commentModel
+    .findById(id)
+    .populate("replies")
+    .populate("commentedBy", "name");
   res.status(200).json({
     message: comment,
   });

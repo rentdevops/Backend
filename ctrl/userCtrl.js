@@ -143,6 +143,10 @@ exports.resetPasswd = async (req, res) => {
   if (!email) {
     throw new BadReq("provide an email for password recovery");
   }
+  const validEmail = await userModel.findOne({ email });
+  if (!validEmail) {
+    throw new BadReq("this email does not exist");
+  }
   const resetPass = await userModel.findOneAndUpdate(
     { email },
     {
@@ -150,7 +154,9 @@ exports.resetPasswd = async (req, res) => {
     },
     { new: true }
   );
-  res
-    .status(200)
-    .json({ message: "Congratulation you have changed your password" });
+  await resetPass.save();
+  res.status(200).json({
+    message: "Congratulation you have changed your password",
+    validEmail,
+  });
 };

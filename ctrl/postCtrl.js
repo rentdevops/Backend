@@ -3,7 +3,7 @@ const userModel = require("../model/userModel");
 
 exports.getPosts = async (req, res) => {
   const page = req.query.page || 1;
-  const limit = req.query.limit || 3;
+  const limit = req.query.limit || 6;
   const skip = (page - 1) * limit;
   const totalPosts = await postModel.countDocuments({});
   const post = await postModel
@@ -23,7 +23,7 @@ exports.searchPost = async (req, res) => {
         title: { $regex: req.query.result, $options: "i" },
       }
     : null;
-  const post = await postModel.find(result);
+  const post = await postModel.find(result).populate("likes", "-password");
 
   res.status(200).json({ message: "searched result", data: post });
 };

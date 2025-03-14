@@ -45,12 +45,12 @@ jobs:
           ls -la rent
       - name: Update ArgoCD deployment.yaml
         run: |
-          sed -i "s|image: .*$|image: $IMAGE_NAME:$IMAGE_TAG|g" rent/rent/backend.yml
+          sed -i "s|image: .*$|image: $IMAGE_NAME:$IMAGE_TAG|g" chatnode/chatnode/backend.yml
       - name: Commit and push changes to ArgoCD repo
         run: |
           cd lantan
           git config --global user.email "chriscrsov@gmail.com"
           git config --global user.name "chrystjr"
-          git add rent/backend.yml  
+          git add chatnode/backend.yml  
           git commit -m "Update image tag to $IMAGE_TAG"
           git push

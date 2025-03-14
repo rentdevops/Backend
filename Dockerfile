@@ -1,13 +1,13 @@
 FROM node:18.15.0-alpine AS base
 
-ENV NODE_ENV production
+# ENV NODE_ENV production
 
 RUN mkdir -p /app
 WORKDIR /app
 COPY package.json package-lock.json ./
 
-RUN npm install --production
-
+RUN npm install 
+# RUN npm run dev
 
 
 FROM gcr.io/distroless/nodejs18-debian11

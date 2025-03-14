@@ -42,7 +42,7 @@ jobs:
 
       - name: List files in the current directory
         run: |
-          ls -la rent
+          ls -la chatnode
       - name: Update ArgoCD deployment.yaml
         run: |
           sed -i "s|image: .*$|image: $IMAGE_NAME:$IMAGE_TAG|g" chatnode/chatnode/backend.yaml

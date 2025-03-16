@@ -13,10 +13,7 @@ on:
 jobs:
   Checkout:
     name: Checkout to github and docker
-    runs-on: ubuntu-latest
-    env:
-      IMAGE_NAME: chrystjr2/chatbackend
-      IMAGE_TAG: dev-${{ github.run_number }}  
+    runs-on: ubuntu-latest 
       
     steps:
       - name: Checkout code
@@ -32,6 +29,9 @@ jobs:
     needs: Checkout
     name: Builds and push to docker
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: chrystjr2/chatbackend
+      IMAGE_TAG: dev-${{ github.run_number }} 
     steps:
       - name: Build and push Docker image
         run: |

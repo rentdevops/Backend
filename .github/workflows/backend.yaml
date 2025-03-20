@@ -50,6 +50,9 @@ jobs:
     needs: build-and-push
     name: Clone and update argocdrepo
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: chrystjr2/chatbackend
+      IMAGE_TAG: dev-${{ github.run_number }}
     steps:
       - name: Clone ArgoCD repository
         uses: actions/checkout@v3

@@ -1,20 +1,17 @@
-FROM node:18.15.0-alpine AS base
+FROM node:18.15.0-alpine
 
-ENV NODE_ENV production
-
-RUN mkdir -p /app
+# Create app directory
 WORKDIR /app
-COPY package.json package-lock.json ./
 
-RUN npm install --production
+# Copy package files and install dependencies
+COPY package*.json ./
+RUN npm install
 
+# Copy application code
+COPY . .
 
+# Expose port (optional but recommended)
+EXPOSE 4000
 
-FROM gcr.io/distroless/nodejs18-debian11
-
-WORKDIR /app
-COPY --from=base /app /app
-
-USER nonroot
-
-CMD ["node","server.js"]
+# Start the application
+CMD ["node", "server.js"]

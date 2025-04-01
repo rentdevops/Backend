@@ -6,9 +6,9 @@ permissions:
 on:
   push:
     branches:
-      - cicd
+      - main
     paths-ignore:
-      - 'README.md'
+      - 'READ.ME.md'
 
 jobs:
   Checkout:

@@ -15,9 +15,9 @@ RUN npm install -g nodemon
 COPY . .
 
 # Set environment variable
-# ENV MONGO_URI="mongodb+srv://blogme:5065@blogme.49ua2.mongodb.net/?retryWrites=true&w=majority&appName=blogme"
+ENV MONGO_URI="mongodb+srv://blogme:5065@blogme.49ua2.mongodb.net/?retryWrites=true&w=majority&appName=blogme"
 # ENV MONGO_URI=mongodb://chatnode:chatnode123@chatnodeddb.c3m0iuk6ckgl.us-east-1.docdb.amazonaws.com:27017/?tls=true&tlsCAFile=global-bundle.pem&retryWrites=false
-ENV MONGO_URI=mongodb://grafael:Rafael1448@chatnode.c4rq4eqqc37z.us-east-1.docdb.amazonaws.com:27017/?retryWrites=false
+# ENV MONGO_URI=mongodb://grafael:Rafael1448@chatnode.c4rq4eqqc37z.us-east-1.docdb.amazonaws.com:27017/?retryWrites=false
 
 # Expose port (optional but recommended)
 EXPOSE 4000
